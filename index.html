@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetStory - O Livro de Colorir & História do Seu Pet</title>
-    <meta name="description" content="Transforme seu pet em um eBook de colorir estilo Bobbie Goods e um site emocionante. Crie memórias e produtos personalizados.">
+    <title>PetStory - O Teu Pet em Versão Bobbie Goods</title>
+    <meta name="description" content="O livro de colorir digital mais fofo da internet. Transforma o teu pet em arte estilo Bobbie Goods.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,7 +15,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@400;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -23,360 +23,283 @@
                 extend: {
                     colors: {
                         brand: {
-                            light: '#FFFBEB', // Amarelo muito claro
-                            DEFAULT: '#F59E0B', // Âmbar
-                            dark: '#B45309', // Marrom
-                            accent: '#78350F', // Marrom escuro
-                            soft: '#FEF3C7'
+                            light: '#FFF9F0', // Creme papel
+                            DEFAULT: '#FBBF24', // Amarelo Gema
+                            dark: '#D97706', // Ocre
+                            accent: '#78350F', // Marrom caneta
+                            pink: '#FCE7F3', // Rosa pastel
+                            blue: '#E0F2FE', // Azul pastel
+                            green: '#DCFCE7', // Verde pastel
+                            purple: '#E9D5FF' // Roxo pastel
                         }
                     },
                     fontFamily: {
-                        serif: ['Lora', 'serif'],
                         sans: ['Nunito', 'sans-serif'],
-                        hand: ['Patrick Hand', 'cursive'], // Fonte estilo escrita à mão para vibe "colorir"
+                        hand: ['Patrick Hand', 'cursive'],
+                    },
+                    boxShadow: {
+                        'cartoon': '4px 4px 0px 0px rgba(0,0,0,1)',
+                        'cartoon-hover': '2px 2px 0px 0px rgba(0,0,0,1)',
+                        'cartoon-lg': '8px 8px 0px 0px rgba(0,0,0,1)',
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "radial-gradient(#CBD5E1 1.5px, transparent 1.5px)",
                     }
                 }
             }
         }
     </script>
     <style>
-        .blob-shape {
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-            animation: morph 8s ease-in-out infinite;
+        body {
+            background-color: #FFF9F0;
+            background-size: 24px 24px;
+            background-image: radial-gradient(#e5e7eb 1.5px, transparent 1.5px);
         }
-        @keyframes morph {
-            0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
-            34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
-            67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
+        
+        .border-cartoon {
+            border: 3px solid #111827;
         }
-        .phone-mockup {
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            border: 8px solid #1F2937;
-            border-radius: 2rem;
-            overflow: hidden;
+
+        /* Animação de flutuar */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .highlight-marker {
             position: relative;
-            background: white;
+            display: inline-block;
         }
-        .book-shadow {
-            box-shadow: 
-                -10px 10px 20px rgba(0,0,0,0.1),
-                -2px 2px 5px rgba(0,0,0,0.05),
-                inset -2px 0 5px rgba(0,0,0,0.05);
-        }
-        /* Efeito de papel */
-        .paper-texture {
-            background-image: radial-gradient(#00000008 1px, transparent 1px);
-            background-size: 20px 20px;
+        .highlight-marker::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 2px;
+            width: 100%;
+            height: 30%;
+            background-color: #FBBF24;
+            opacity: 0.4;
+            transform: skewX(-10deg);
+            z-index: -1;
         }
     </style>
 </head>
-<body class="font-sans text-gray-800 bg-brand-light">
+<body class="font-sans text-gray-900 antialiased overflow-x-hidden">
 
-    <!-- Navbar -->
-    <nav class="bg-white/90 backdrop-blur-md fixed w-full z-50 border-b border-orange-100">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-2 group">
-                <i class="fa-solid fa-paintbrush text-2xl text-brand group-hover:rotate-12 transition-transform"></i>
-                <span class="text-2xl font-bold font-serif text-brand-accent">PetStory</span>
+    <!-- Navbar Flutuante -->
+    <nav class="fixed w-full z-50 top-4 px-4">
+        <div class="max-w-6xl mx-auto bg-white/90 backdrop-blur-md border-cartoon rounded-full px-6 py-3 flex justify-between items-center shadow-cartoon">
+            <a href="#" class="flex items-center gap-2 group hover:scale-105 transition-transform">
+                <i class="fa-solid fa-paw text-2xl text-brand-dark"></i>
+                <span class="text-2xl font-hand font-bold tracking-wide">PetStory<span class="text-brand-dark">.art</span></span>
             </a>
-            <div class="hidden md:flex items-center gap-8 font-semibold text-gray-600">
-                <a href="#como-funciona" class="hover:text-brand transition">Como funciona</a>
-                <a href="#o-que-recebe" class="hover:text-brand transition">O Kit</a>
-                <a href="#produtos" class="hover:text-brand transition">Produtos</a>
-            </div>
-            <div class="flex gap-4">
-                <a href="/login" class="hidden md:block px-5 py-2 text-brand-dark font-bold hover:bg-orange-50 rounded-full transition">Entrar</a>
-                <a href="/register" class="px-6 py-2 bg-brand hover:bg-brand-dark text-white font-bold rounded-full shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5">
-                    Criar História
-                </a>
-            </div>
+            <a href="#oferta" class="hidden md:inline-block px-6 py-2 bg-green-400 text-white font-black font-hand text-lg rounded-full border-cartoon shadow-cartoon hover:translate-y-[2px] hover:shadow-cartoon-hover transition-all">
+                QUERO PINTAR O MEU PET
+            </a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="flex flex-col lg:flex-row items-center gap-12">
+    <!-- Hero Section (VSL Style) -->
+    <header class="pt-32 pb-20 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 bg-brand-pink px-4 py-2 rounded-full border-cartoon shadow-cartoon mb-8 rotate-[-2deg] animate-pulse">
+                <i class="fa-brands fa-tiktok"></i>
+                <span class="font-hand font-bold text-lg">A tendência #1 do momento</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-4xl md:text-6xl font-black font-hand mb-6 leading-[1.1] text-gray-900">
+                Transforma a foto do teu melhor amigo <br>
+                num <span class="highlight-marker">Livro de Colorir Cozy</span>
+            </h1>
+            
+            <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto font-medium">
+                Diz adeus ao stress. Recebe um PDF personalizado com desenhos fofos do teu pet (estilo Bobbie Goods) para imprimir e pintar em casa.
+            </p>
+
+            <!-- Video Sales Letter Container (O "Segredo" do Vídeo Analisado) -->
+            <div class="relative max-w-3xl mx-auto mb-12 group">
+                <!-- Efeito de Fundo -->
+                <div class="absolute -inset-2 bg-brand rounded-[2rem] border-cartoon rotate-2 group-hover:rotate-1 transition-transform"></div>
                 
-                <!-- Text Content -->
-                <div class="lg:w-1/2 text-center lg:text-left">
-                    <div class="inline-block px-4 py-2 mb-6 bg-purple-100 text-purple-700 rounded-full text-sm font-bold tracking-wide uppercase shadow-sm border border-purple-200">
-                        🎨 Novo: eBook para Colorir incluso!
-                    </div>
-                    <h1 class="text-4xl lg:text-6xl font-serif font-bold text-gray-900 leading-tight mb-6">
-                        A história do seu pet virou <span class="text-brand relative inline-block">
-                            arte para colorir
-                            <svg class="absolute w-full h-3 -bottom-1 left-0 text-brand/20" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="8" fill="none" />
-                            </svg>
-                        </span>.
-                    </h1>
-                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-                        Transforme seu melhor amigo em um <strong>livro digital de colorir (estilo *cozy*)</strong> e receba um site exclusivo contando a história dele. Relaxe pintando momentos inesquecíveis.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="/create" class="px-8 py-4 bg-brand hover:bg-brand-dark text-white text-lg font-bold rounded-full shadow-xl hover:shadow-2xl transition transform hover:-translate-y-1 flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paintbrush"></i> Criar meu Livro & Site
-                        </a>
-                        <a href="#o-que-recebe" class="px-8 py-4 bg-white hover:bg-gray-50 text-gray-700 text-lg font-bold rounded-full shadow-md hover:shadow-lg transition border border-gray-200 flex items-center justify-center gap-2">
-                            <i class="fa-regular fa-circle-play"></i> Ver como fica
-                        </a>
-                    </div>
-                    <p class="mt-6 text-sm text-gray-500 font-hand text-lg rotate-1">
-                        <i class="fa-solid fa-arrow-turn-up text-brand"></i> Perfeito para relaxar ou presentear!
-                    </p>
-                </div>
-
-                <!-- Hero Visuals (Phone + PDF Page) -->
-                <div class="lg:w-1/2 relative flex justify-center items-center">
-                    <!-- Blob Background -->
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-brand/10 blob-shape -z-10"></div>
-                    
-                    <!-- Container for overlap effect -->
-                    <div class="relative w-full max-w-lg h-[500px]">
+                <!-- Container do Vídeo -->
+                <div class="relative bg-white rounded-[1.8rem] border-cartoon overflow-hidden aspect-video shadow-cartoon">
+                    <!-- Placeholder de Vídeo (Imagem estática com botão play) -->
+                    <div class="absolute inset-0 bg-gray-100 flex items-center justify-center bg-cover bg-center cursor-pointer" style="background-image: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1000&auto=format&fit=crop');">
+                        <div class="absolute inset-0 bg-black/20 hover:bg-black/10 transition-colors"></div>
+                        <div class="w-20 h-20 bg-red-500 rounded-full flex items-center justify-center border-4 border-white shadow-lg scale-100 hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-play text-white text-3xl ml-1"></i>
+                        </div>
                         
-                        <!-- The Coloring Page (PDF Mockup) -->
-                        <div class="absolute top-0 right-0 w-64 h-80 bg-white rounded-lg border border-gray-200 book-shadow rotate-6 z-10 p-4 transform hover:rotate-12 transition duration-500 paper-texture">
-                            <div class="border-2 border-dashed border-gray-300 h-full rounded flex flex-col items-center justify-center p-4">
-                                <!-- Placeholder for coloring lineart -->
-                                <div class="w-full h-40 bg-gray-50 mb-4 rounded flex items-center justify-center">
-                                    <i class="fa-solid fa-dog text-6xl text-gray-300"></i>
-                                </div>
-                                <div class="w-full h-2 bg-gray-200 rounded mb-2"></div>
-                                <div class="w-3/4 h-2 bg-gray-200 rounded mb-2"></div>
-                                <div class="mt-auto text-center">
-                                    <span class="font-hand text-xl text-gray-400">Pinte o Max!</span>
-                                </div>
-                            </div>
-                            <!-- Pencil Icon decoration -->
-                            <div class="absolute -bottom-4 -right-4 w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg text-white">
-                                <i class="fa-solid fa-pencil"></i>
-                            </div>
+                        <!-- Etiqueta "Ver Resultado" -->
+                        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/90 px-6 py-2 rounded-full font-bold border-2 border-gray-900 shadow-sm">
+                            <i class="fa-solid fa-eye text-brand-dark mr-2"></i> Ver como fica o desenho
                         </div>
-
-                        <!-- The Phone (Mobile Site Mockup) -->
-                        <div class="absolute bottom-0 left-4 w-60 phone-mockup bg-white z-20 transform -rotate-3 hover:rotate-0 transition duration-500">
-                            <div class="h-6 bg-gray-800 w-full absolute top-0 left-0 z-20 flex justify-center rounded-b-lg"></div>
-                            
-                            <div class="h-[450px] overflow-hidden bg-orange-50 relative">
-                                <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60" class="w-full h-40 object-cover">
-                                <div class="p-4 text-center">
-                                    <h3 class="font-serif font-bold text-lg text-brand-dark">As Aventuras de Thor</h3>
-                                    <p class="text-xs text-gray-600 mt-2 mb-4 leading-snug">"Onde quer que haja um chinelo, Thor estará lá..."</p>
-                                    <button class="bg-brand text-white text-xs px-4 py-2 rounded-full font-bold shadow-sm">Ler História</button>
-                                </div>
-                                <!-- Floating Hearts animation -->
-                                <div class="absolute bottom-4 right-4 animate-bounce">
-                                    <i class="fa-solid fa-heart text-red-400 text-xl"></i>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
+            </div>
+
+            <!-- CTA Principal -->
+            <div class="flex flex-col items-center gap-4">
+                <a href="/create" class="inline-flex items-center gap-3 px-8 py-5 bg-green-500 hover:bg-green-600 text-white font-black font-hand text-2xl rounded-2xl border-cartoon shadow-cartoon-lg hover:translate-y-1 hover:shadow-cartoon transition-all group">
+                    <span>CRIAR A MINHA HISTÓRIA</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <p class="text-sm font-bold text-gray-500 flex items-center gap-2">
+                    <i class="fa-solid fa-bolt text-yellow-500"></i> Entrega em menos de 5 minutos
+                </p>
             </div>
         </div>
     </header>
 
-    <!-- How it works -->
-    <section id="como-funciona" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-brand font-bold uppercase tracking-wider text-sm">Passo a Passo</span>
-                <h2 class="text-3xl lg:text-4xl font-serif font-bold text-gray-800 mt-2">Do amor à arte em 3 passos</h2>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8 relative">
-                <!-- Connecting line for desktop -->
-                <div class="hidden md:block absolute top-12 left-[16%] right-[16%] h-1 bg-orange-100 -z-10 border-t-2 border-dashed border-orange-200"></div>
-
-                <!-- Step 1 -->
-                <div class="relative bg-white p-6 rounded-2xl text-center">
-                    <div class="w-20 h-20 mx-auto bg-orange-100 text-brand-dark rounded-full flex items-center justify-center text-3xl mb-6 border-4 border-white shadow-lg">
-                        <i class="fa-solid fa-camera"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2 font-serif">1. Envie a foto</h3>
-                    <p class="text-gray-600">Suba uma foto e conte um pouquinho da personalidade dele (doce, bagunceiro, dorminhoco...).</p>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="relative bg-white p-6 rounded-2xl text-center">
-                    <div class="w-20 h-20 mx-auto bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-3xl mb-6 border-4 border-white shadow-lg">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2 font-serif">2. A Mágica Acontece</h3>
-                    <p class="text-gray-600">Nossa IA cria a história escrita e gera <strong>desenhos em traço fofo</strong> prontos para pintar.</p>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="relative bg-white p-6 rounded-2xl text-center">
-                    <div class="w-20 h-20 mx-auto bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl mb-6 border-4 border-white shadow-lg">
-                        <i class="fa-solid fa-gift"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2 font-serif">3. Receba seu Kit</h3>
-                    <p class="text-gray-600">Você recebe o Link do Site + o PDF do eBook para imprimir e colorir em casa.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- The Bundle Section (New) -->
-    <section id="o-que-recebe" class="py-20 bg-brand-soft overflow-hidden">
-        <div class="container mx-auto px-6">
+    <!-- Seção Antes e Depois (Prova Visual) -->
+    <section class="py-20 bg-white border-y-[3px] border-gray-900">
+        <div class="max-w-6xl mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl lg:text-4xl font-serif font-bold text-brand-accent">O que vem no seu pacote PetStory?</h2>
-                <p class="text-gray-700 mt-4 font-hand text-2xl">Muito mais que apenas uma foto!</p>
+                <h2 class="text-4xl font-hand font-bold mb-4">Mágica em 3 Passos ✨</h2>
+                <p class="text-gray-600 text-lg">A nossa IA capta a personalidade e traços únicos do teu pet.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- Visual Bundle -->
-                <div class="relative group">
-                    <div class="absolute inset-0 bg-white rounded-3xl transform rotate-3 shadow-xl transition group-hover:rotate-6"></div>
-                    <div class="relative bg-white rounded-3xl p-8 border-2 border-orange-100 shadow-lg">
-                        <div class="flex flex-col gap-6">
-                            <div class="flex items-center gap-4 border-b border-gray-100 pb-4">
-                                <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center text-2xl text-blue-600"><i class="fa-solid fa-globe"></i></div>
-                                <div>
-                                    <h4 class="font-bold text-lg">Site da História</h4>
-                                    <p class="text-sm text-gray-500">Para compartilhar no WhatsApp e Bio.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4 border-b border-gray-100 pb-4">
-                                <div class="w-16 h-16 bg-yellow-100 rounded-lg flex items-center justify-center text-2xl text-yellow-600"><i class="fa-solid fa-file-pdf"></i></div>
-                                <div>
-                                    <h4 class="font-bold text-lg">eBook para Colorir (PDF)</h4>
-                                    <p class="text-sm text-gray-500">Estilo fofinho (cozy) em alta resolução.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-16 h-16 bg-pink-100 rounded-lg flex items-center justify-center text-2xl text-pink-600"><i class="fa-solid fa-images"></i></div>
-                                <div>
-                                    <h4 class="font-bold text-lg">Artes Digitais</h4>
-                                    <p class="text-sm text-gray-500">Arquivos prontos para você imprimir onde quiser.</p>
-                                </div>
-                            </div>
-                        </div>
+            <div class="grid md:grid-cols-3 gap-8 items-center relative">
+                <!-- Seta conectora (Desktop) -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-2 border-t-4 border-dashed border-gray-200 -z-10 -translate-y-4"></div>
+
+                <!-- Passo 1 -->
+                <div class="bg-brand-light p-6 rounded-3xl border-cartoon shadow-cartoon text-center relative hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-white border-cartoon rounded-full flex items-center justify-center font-bold text-xl absolute -top-6 left-1/2 -translate-x-1/2 shadow-sm">1</div>
+                    <div class="h-48 bg-gray-200 rounded-xl mb-4 border-2 border-gray-900 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="w-full h-full object-cover">
                     </div>
+                    <h3 class="font-bold text-xl mb-1">Tu envias a foto</h3>
+                    <p class="text-sm text-gray-500">Pode ser do telemóvel mesmo.</p>
                 </div>
 
-                <!-- Text Sales -->
+                <!-- Passo 2 (Loading) -->
+                <div class="bg-brand-blue p-6 rounded-3xl border-cartoon shadow-cartoon text-center relative hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-white border-cartoon rounded-full flex items-center justify-center font-bold text-xl absolute -top-6 left-1/2 -translate-x-1/2 shadow-sm">2</div>
+                    <div class="h-48 bg-white rounded-xl mb-4 border-2 border-gray-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fa-solid fa-wand-magic-sparkles text-5xl text-blue-500 animate-pulse"></i>
+                        <div class="absolute bottom-0 w-full h-1 bg-gray-100">
+                            <div class="h-full bg-blue-500 w-2/3"></div>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-xl mb-1">A IA desenha</h3>
+                    <p class="text-sm text-gray-500">Traços grossos estilo "Cozy".</p>
+                </div>
+
+                <!-- Passo 3 (Resultado) -->
+                <div class="bg-brand-pink p-6 rounded-3xl border-cartoon shadow-cartoon text-center relative hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-white border-cartoon rounded-full flex items-center justify-center font-bold text-xl absolute -top-6 left-1/2 -translate-x-1/2 shadow-sm">3</div>
+                    <div class="h-48 bg-white rounded-xl mb-4 border-2 border-gray-900 flex items-center justify-center relative overflow-hidden bg-[url('https://www.transparenttextures.com/patterns/paper.png')]">
+                        <i class="fa-solid fa-dog text-8xl text-gray-900 opacity-90"></i>
+                        <!-- Detalhes coloridos simulados -->
+                        <div class="absolute top-2 right-2 w-8 h-8 bg-yellow-300 rounded-full mix-blend-multiply opacity-50"></div>
+                    </div>
+                    <h3 class="font-bold text-xl mb-1">Recebes o PDF</h3>
+                    <p class="text-sm text-gray-500">Pronto para imprimir e pintar!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria de Exemplos (Grid Bento) -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
                 <div>
-                    <h3 class="text-2xl font-bold font-serif mb-6 text-gray-800">1. O eBook de Colorir 🖍️</h3>
-                    <p class="text-gray-600 mb-8 leading-relaxed">
-                        Esqueça o estresse do dia a dia. Receba um PDF exclusivo com desenhos estilizados do seu pet (estilo Bobbie Goods) em cenários divertidos baseados na vida dele. É só imprimir e pintar!
-                    </p>
+                    <h2 class="text-4xl font-hand font-bold">Galeria da Fofura 🐾</h2>
+                    <p class="text-gray-600">Vê alguns exemplos reais gerados pela nossa comunidade.</p>
+                </div>
+                <div class="bg-yellow-100 px-4 py-2 rounded-lg border-2 border-gray-900 font-bold text-sm transform rotate-2">
+                    <i class="fa-solid fa-fire text-orange-500"></i> +1.204 histórias criadas hoje
+                </div>
+            </div>
 
-                    <h3 class="text-2xl font-bold font-serif mb-6 text-gray-800">2. O Site Interativo 🌐</h3>
-                    <p class="text-gray-600 mb-8 leading-relaxed">
-                        Uma página web dedicada ao seu amigo. Com fotos, a biografia escrita pela IA e espaço para dedicatórias. Uma memória digital que dura para sempre.
-                    </p>
-
-                    <div class="bg-white p-4 rounded-xl shadow-sm border border-orange-200 inline-block">
-                        <p class="font-bold text-brand-dark flex items-center gap-2">
-                            <i class="fa-solid fa-tag"></i> Oferta de Lançamento
-                        </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-96 md:h-[500px]">
+                <!-- Item Grande -->
+                <div class="col-span-2 row-span-2 bg-white rounded-2xl border-cartoon shadow-cartoon overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur border-t-2 border-gray-900 p-4 translate-y-full group-hover:translate-y-0 transition-transform">
+                        <p class="font-bold text-lg">Thor, o Aventureiro</p>
+                        <p class="text-xs text-gray-500">Estilo: Parque & Diversão</p>
+                    </div>
+                </div>
+                
+                <!-- Itens Pequenos -->
+                <div class="bg-brand-blue rounded-2xl border-cartoon shadow-cartoon flex items-center justify-center relative overflow-hidden group">
+                    <i class="fa-solid fa-cat text-6xl text-gray-800 group-hover:scale-110 transition-transform"></i>
+                    <span class="absolute top-2 right-2 bg-white px-2 rounded border border-black text-xs font-bold">Gatos</span>
+                </div>
+                <div class="bg-brand-pink rounded-2xl border-cartoon shadow-cartoon flex items-center justify-center relative overflow-hidden group">
+                    <i class="fa-solid fa-dog text-6xl text-gray-800 group-hover:scale-110 transition-transform"></i>
+                    <span class="absolute top-2 right-2 bg-white px-2 rounded border border-black text-xs font-bold">Cães</span>
+                </div>
+                <div class="bg-brand-green rounded-2xl border-cartoon shadow-cartoon flex items-center justify-center relative overflow-hidden group">
+                    <i class="fa-solid fa-otter text-6xl text-gray-800 group-hover:scale-110 transition-transform"></i>
+                    <span class="absolute top-2 right-2 bg-white px-2 rounded border border-black text-xs font-bold">Exóticos</span>
+                </div>
+                <div class="bg-brand-purple rounded-2xl border-cartoon shadow-cartoon flex items-center justify-center relative overflow-hidden group">
+                    <div class="text-center">
+                        <p class="font-hand font-bold text-2xl">O teu?</p>
+                        <i class="fa-solid fa-plus text-xl mt-2"></i>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Upsell / Merch Showcase Section -->
-    <section id="produtos" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
-                <div class="max-w-2xl">
-                    <span class="text-purple-600 font-bold tracking-wide uppercase text-sm">Leve para a vida real</span>
-                    <h2 class="text-3xl lg:text-4xl font-serif font-bold text-gray-900 mt-2">Sua arte em produtos incríveis</h2>
-                    <p class="text-gray-600 mt-4">Ao finalizar sua história, você pode encomendar produtos exclusivos com a ilustração do seu pet.</p>
-                </div>
-                <div class="hidden md:block">
-                     <i class="fa-solid fa-arrow-down text-4xl text-gray-200 animate-bounce"></i>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Mug Product -->
-                <div class="group cursor-pointer">
-                    <div class="bg-gray-100 rounded-2xl h-64 relative overflow-hidden flex items-center justify-center mb-4 transition group-hover:shadow-lg">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition z-10"></div>
-                        <!-- Placeholder Mug Icon -->
-                        <i class="fa-solid fa-mug-hot text-8xl text-gray-300 group-hover:scale-110 transition duration-500"></i>
-                        <div class="absolute bottom-4 left-4 text-white z-20 opacity-0 group-hover:opacity-100 transition transform translate-y-4 group-hover:translate-y-0">
-                            <span class="bg-brand text-xs font-bold px-2 py-1 rounded">Best Seller</span>
-                        </div>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800">Caneca Personalizada</h3>
-                    <p class="text-gray-500 text-sm">A ilustração do seu pet para acompanhar seu café.</p>
-                </div>
-
-                <!-- Frame Product -->
-                <div class="group cursor-pointer">
-                    <div class="bg-gray-100 rounded-2xl h-64 relative overflow-hidden flex items-center justify-center mb-4 transition group-hover:shadow-lg">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition z-10"></div>
-                        <i class="fa-solid fa-image text-8xl text-gray-300 group-hover:scale-110 transition duration-500"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800">Quadro Decorativo</h3>
-                    <p class="text-gray-500 text-sm">Para pendurar o amor na parede da sala.</p>
-                </div>
-
-                <!-- Sticker Product -->
-                <div class="group cursor-pointer">
-                    <div class="bg-gray-100 rounded-2xl h-64 relative overflow-hidden flex items-center justify-center mb-4 transition group-hover:shadow-lg">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition z-10"></div>
-                        <i class="fa-solid fa-note-sticky text-8xl text-gray-300 group-hover:scale-110 transition duration-500"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800">Adesivos & Cards</h3>
-                    <p class="text-gray-500 text-sm">Cole a carinha dele no notebook ou agenda.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials updated context -->
-    <section id="depoimentos" class="py-20 bg-brand-dark text-white relative overflow-hidden">
-        <div class="container mx-auto px-6 relative z-10">
-            <h2 class="text-3xl lg:text-4xl font-serif font-bold text-center mb-16">Quem pintou, amou ❤️</h2>
+    <!-- Depoimentos (Prova Social) -->
+    <section class="py-20 bg-brand-dark/5 border-y-[3px] border-gray-900">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-hand font-bold text-center mb-12">Quem pintou, amou ❤️</h2>
             
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
-                    <div class="flex gap-1 text-brand-light mb-4">
+                <!-- Review 1 -->
+                <div class="bg-white p-6 rounded-2xl border-cartoon shadow-cartoon">
+                    <div class="flex gap-1 text-brand mb-3">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="italic mb-6">"Imprimi o PDF e passei a tarde de domingo pintando os desenhos da Luna com minha filha. Foi uma terapia!"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-purple-400 rounded-full flex items-center justify-center font-bold text-white">M</div>
+                    <p class="text-gray-700 italic mb-6">"Imprimi o PDF e passei a tarde de domingo a pintar os desenhos da Luna com a minha filha. Foi uma terapia!"</p>
+                    <div class="flex items-center gap-3 border-t border-gray-200 pt-4">
+                        <div class="w-10 h-10 bg-purple-200 rounded-full border-2 border-gray-900 flex items-center justify-center font-bold">M</div>
                         <div>
                             <p class="font-bold text-sm">Mariana S.</p>
-                            <p class="text-xs text-white/60">Comprou o Kit Completo</p>
+                            <p class="text-xs text-gray-500">Comprou o Kit Completo</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
-                    <div class="flex gap-1 text-brand-light mb-4">
+                <!-- Review 2 -->
+                <div class="bg-white p-6 rounded-2xl border-cartoon shadow-cartoon transform md:-translate-y-4">
+                    <div class="flex gap-1 text-brand mb-3">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="italic mb-6">"O site ficou lindo, mas a caneca com o desenho dele estilo cartoon ficou perfeita. Todo mundo pergunta onde fiz."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-green-400 rounded-full flex items-center justify-center font-bold text-white">R</div>
+                    <p class="text-gray-700 italic mb-6">"O site ficou lindo, mas a versão para colorir estilo cartoon ficou perfeita. Todo o mundo pergunta onde fiz."</p>
+                    <div class="flex items-center gap-3 border-t border-gray-200 pt-4">
+                        <div class="w-10 h-10 bg-green-200 rounded-full border-2 border-gray-900 flex items-center justify-center font-bold">R</div>
                         <div>
                             <p class="font-bold text-sm">Ricardo O.</p>
-                            <p class="text-xs text-white/60">Comprou a Caneca</p>
+                            <p class="text-xs text-gray-500">Comprou o Pack Natal</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
-                    <div class="flex gap-1 text-brand-light mb-4">
+                <!-- Review 3 -->
+                <div class="bg-white p-6 rounded-2xl border-cartoon shadow-cartoon">
+                    <div class="flex gap-1 text-brand mb-3">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="italic mb-6">"O traço do desenho é muito fofo, bem estilo aqueles vídeos de colorir do TikTok. Amei demais!"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center font-bold text-white">C</div>
+                    <p class="text-gray-700 italic mb-6">"O traço do desenho é muito fofo, bem estilo aqueles vídeos de colorir do TikTok. Amei demais!"</p>
+                    <div class="flex items-center gap-3 border-t border-gray-200 pt-4">
+                        <div class="w-10 h-10 bg-blue-200 rounded-full border-2 border-gray-900 flex items-center justify-center font-bold">C</div>
                         <div>
                             <p class="font-bold text-sm">Carla M.</p>
-                            <p class="text-xs text-white/60">Comprou o eBook</p>
+                            <p class="text-xs text-gray-500">Dona de 3 gatos</p>
                         </div>
                     </div>
                 </div>
@@ -384,75 +307,120 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="py-20 bg-orange-50">
-        <div class="container mx-auto px-6 max-w-3xl">
-            <h2 class="text-3xl font-serif font-bold text-center text-gray-800 mb-12">Dúvidas Comuns</h2>
+    <!-- Oferta Principal (A Pilha) -->
+    <section id="oferta" class="py-20 px-4">
+        <div class="max-w-5xl mx-auto bg-white rounded-[2.5rem] border-cartoon shadow-cartoon-lg overflow-hidden relative">
             
-            <div class="space-y-4">
-                <details class="group bg-white rounded-lg shadow-sm p-4 cursor-pointer">
-                    <summary class="flex items-center justify-between font-bold text-gray-700">
-                        Como recebo o livro de colorir?
-                        <span class="ml-2 transition group-open:rotate-180"><i class="fa-solid fa-chevron-down text-brand"></i></span>
-                    </summary>
-                    <p class="mt-4 text-gray-600 leading-relaxed">
-                        Assim que a história for gerada, você recebe um arquivo PDF em alta resolução no seu e-mail. Você pode imprimir em casa quantas vezes quiser ou usar em tablets.
-                    </p>
-                </details>
+            <!-- Faixa de Urgência -->
+            <div class="bg-red-500 text-white text-center py-2 font-bold font-hand text-lg border-b-cartoon">
+                <i class="fa-solid fa-clock fa-spin-pulse mr-2"></i> OFERTA DE LANÇAMENTO — EXPIRA EM BREVE
+            </div>
 
-                <details class="group bg-white rounded-lg shadow-sm p-4 cursor-pointer">
-                    <summary class="flex items-center justify-between font-bold text-gray-700">
-                        Os produtos (canecas) chegam na minha casa?
-                        <span class="ml-2 transition group-open:rotate-180"><i class="fa-solid fa-chevron-down text-brand"></i></span>
-                    </summary>
-                    <p class="mt-4 text-gray-600 leading-relaxed">
-                        Sim! O eBook e o Site são digitais (entrega imediata), mas se você escolher comprar canecas ou quadros no final, nós cuidamos da produção e envio físico para o seu endereço.
-                    </p>
-                </details>
+            <div class="grid md:grid-cols-2">
+                <!-- Coluna Benefícios -->
+                <div class="p-8 md:p-12 bg-gray-50 border-b-cartoon md:border-b-0 md:border-r-cartoon">
+                    <h2 class="text-3xl font-black font-hand mb-6">O que vais receber:</h2>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-4 bg-white p-3 rounded-xl border-2 border-gray-200">
+                            <i class="fa-solid fa-check text-white bg-green-500 rounded-full p-1 text-xs"></i>
+                            <span class="font-bold text-gray-700">Livro de Colorir (PDF - 10 Páginas)</span>
+                        </li>
+                        <li class="flex items-center gap-4 bg-white p-3 rounded-xl border-2 border-gray-200">
+                            <i class="fa-solid fa-check text-white bg-green-500 rounded-full p-1 text-xs"></i>
+                            <span class="font-bold text-gray-700">Arte Estilo "Bobbie Goods"</span>
+                        </li>
+                        <li class="flex items-center gap-4 bg-white p-3 rounded-xl border-2 border-gray-200">
+                            <i class="fa-solid fa-check text-white bg-green-500 rounded-full p-1 text-xs"></i>
+                            <span class="font-bold text-gray-700">Cenários Diversos (Parque, Casa...)</span>
+                        </li>
+                        <li class="flex items-center gap-4 bg-brand-pink/50 p-3 rounded-xl border-2 border-brand-accent">
+                            <i class="fa-solid fa-gift text-brand-accent"></i>
+                            <span class="font-bold text-brand-accent">BÓNUS: Site com a História do Pet</span>
+                        </li>
+                    </ul>
 
-                <details class="group bg-white rounded-lg shadow-sm p-4 cursor-pointer">
-                    <summary class="flex items-center justify-between font-bold text-gray-700">
-                        Serve para qualquer animal?
-                        <span class="ml-2 transition group-open:rotate-180"><i class="fa-solid fa-chevron-down text-brand"></i></span>
-                    </summary>
-                    <p class="mt-4 text-gray-600 leading-relaxed">
-                        Com certeza! Cachorros, gatos, coelhos, pássaros... Nossa IA desenha e escreve sobre qualquer bichinho.
+                    <div class="mt-8 pt-8 border-t-2 border-dashed border-gray-300">
+                        <p class="text-center text-gray-500 text-sm mb-2">Garantia incondicional de 7 dias</p>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" class="h-6 mx-auto opacity-50 grayscale hover:grayscale-0 transition-all">
+                    </div>
+                </div>
+
+                <!-- Coluna Preço -->
+                <div class="p-8 md:p-12 flex flex-col justify-center text-center bg-brand-light">
+                    <p class="text-gray-500 font-bold line-through text-lg">De R$ 97,90</p>
+                    <div class="flex justify-center items-start gap-1 mb-2">
+                        <span class="text-2xl font-bold mt-2">R$</span>
+                        <span class="text-7xl font-black text-brand-dark tracking-tighter">27,90</span>
+                    </div>
+                    <p class="text-sm font-bold text-green-600 bg-green-100 py-1 px-3 rounded-full inline-block mx-auto mb-8 border border-green-200">
+                        Pagas uma única vez. Acesso vitalício.
                     </p>
-                </details>
+
+                    <a href="/create" class="w-full py-4 bg-brand hover:bg-brand-dark text-white font-black text-2xl rounded-xl border-cartoon shadow-cartoon hover:translate-y-1 hover:shadow-none transition-all group relative overflow-hidden">
+                        <span class="relative z-10">QUERO O MEU KIT</span>
+                    </a>
+                    
+                    <p class="mt-4 text-xs text-gray-500">
+                        <i class="fa-solid fa-lock"></i> Pagamento 100% Seguro
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Final CTA -->
-    <section class="py-20 bg-white text-center">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl lg:text-5xl font-serif font-bold text-gray-900 mb-6">Eternize, pinte e ame.</h2>
-            <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">Crie sua história e receba seu livro de colorir agora mesmo.</p>
-            
-            <a href="/register" class="inline-block px-10 py-5 bg-brand hover:bg-brand-dark text-white text-xl font-bold rounded-full shadow-xl hover:shadow-2xl transition transform hover:-translate-y-1 animate-pulse">
-                Quero meu eBook e Site
-            </a>
-            <p class="mt-4 text-sm text-gray-500">Satisfação garantida ou seu amor de volta.</p>
+    <!-- FAQ -->
+    <section class="py-20 max-w-3xl mx-auto px-4">
+        <h2 class="text-3xl font-hand font-bold text-center mb-10">Perguntas Frequentes</h2>
+        <div class="space-y-4">
+            <details class="group bg-white rounded-2xl border-cartoon shadow-cartoon p-4 cursor-pointer">
+                <summary class="font-bold flex justify-between items-center text-lg list-none">
+                    Serve para qualquer animal?
+                    <i class="fa-solid fa-chevron-down transition-transform group-open:rotate-180"></i>
+                </summary>
+                <p class="mt-4 text-gray-600 leading-relaxed border-t border-gray-100 pt-4">
+                    Sim! Cão, gato, hamster, papagaio... A nossa IA desenha todos com muito carinho. Basta enviares uma foto nítida.
+                </p>
+            </details>
+
+            <details class="group bg-white rounded-2xl border-cartoon shadow-cartoon p-4 cursor-pointer">
+                <summary class="font-bold flex justify-between items-center text-lg list-none">
+                    Recebo algo em casa (físico)?
+                    <i class="fa-solid fa-chevron-down transition-transform group-open:rotate-180"></i>
+                </summary>
+                <p class="mt-4 text-gray-600 leading-relaxed border-t border-gray-100 pt-4">
+                    Neste plano, o produto é <strong>100% DIGITAL</strong>. Recebes os ficheiros PDF por e-mail para imprimir em casa ou na papelaria mais próxima. Isso garante entrega imediata e custo baixo!
+                </p>
+            </details>
+
+            <details class="group bg-white rounded-2xl border-cartoon shadow-cartoon p-4 cursor-pointer">
+                <summary class="font-bold flex justify-between items-center text-lg list-none">
+                    Quanto tempo demora a ficar pronto?
+                    <i class="fa-solid fa-chevron-down transition-transform group-open:rotate-180"></i>
+                </summary>
+                <p class="mt-4 text-gray-600 leading-relaxed border-t border-gray-100 pt-4">
+                    É super rápido. Após o pagamento, preenches o formulário e a IA gera o teu livro em cerca de 2 a 5 minutos.
+                </p>
+            </details>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-paintbrush text-brand text-2xl"></i>
-                <span class="text-xl font-bold font-serif text-white">PetStory</span>
+    <footer class="bg-gray-900 text-white py-12 border-t-cartoon mt-12">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <div class="flex justify-center items-center gap-2 mb-6">
+                <i class="fa-solid fa-paw text-brand text-2xl"></i>
+                <span class="text-2xl font-hand font-bold">PetStory<span class="text-brand">.art</span></span>
             </div>
-            
-            <div class="text-sm">
-                &copy; 2024 PetStory. Feito com <i class="fa-solid fa-heart text-red-500"></i> para quem ama colorir a vida.
+            <p class="text-gray-400 text-sm mb-8">
+                Transformamos memórias em arte para colorir. <br>
+                O presente perfeito para quem ama o seu pet.
+            </p>
+            <div class="flex justify-center gap-6 text-sm font-bold text-gray-500">
+                <a href="#" class="hover:text-brand transition">Termos</a>
+                <a href="#" class="hover:text-brand transition">Privacidade</a>
+                <a href="#" class="hover:text-brand transition">Instagram</a>
             </div>
-            
-            <div class="flex gap-6 text-sm">
-                <a href="#" class="hover:text-white transition">Privacidade</a>
-                <a href="#" class="hover:text-white transition">Termos</a>
-                <a href="#" class="hover:text-white transition">Instagram</a>
-            </div>
+            <p class="mt-8 text-xs text-gray-600">© 2024 PetStory. Feito com ❤️ e IA.</p>
         </div>
     </footer>
 
